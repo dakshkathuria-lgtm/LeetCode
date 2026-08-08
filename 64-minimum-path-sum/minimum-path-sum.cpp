@@ -14,12 +14,12 @@ public:
 
         if(x==m-1){
             //go right 
-            return grid[x][y] + f(x, y+1, m, n, grid);
+            return (dp[x][y] = grid[x][y] + f(x, y+1, m, n, grid));
         }
 
         if(y==n-1){
             //go down 
-            return grid[x][y] + f(x+1, y, m, n, grid);
+            return (dp[x][y] = grid[x][y] + f(x+1, y, m, n, grid));
         }
 
         int op1 = grid[x][y] + f(x+1, y, m, n, grid);
