@@ -31,31 +31,40 @@ public:
     // }
 
     // RECURSION FROM BACK
-    int f1(vector<vector<int>>& obstacleGrid, int row , int col, int m , int n){
-        if(row<0 or col < 0){
-            return 0;
-        }
-        if(obstacleGrid[row][col]==1){
-            return 0;
-        }
-        if(row== 0 and col==0){
-            return 1;
-        }
-        if(dp[row][col]!=-1){
-            return dp[row][col];
-        }
+    // int f1(vector<vector<int>>& obstacleGrid, int row , int col, int m , int n){
+    //     if(row<0 or col < 0){
+    //         return 0;
+    //     }
+    //     if(obstacleGrid[row][col]==1){
+    //         return 0;
+    //     }
+    //     if(row== 0 and col==0){
+    //         return 1;
+    //     }
+    //     if(dp[row][col]!=-1){
+    //         return dp[row][col];
+    //     }
 
-        int op1 = f1(obstacleGrid, row-1, col, m, n);
-        int op2 = f1(obstacleGrid, row, col-1, m , n);
+    //     int op1 = f1(obstacleGrid, row-1, col, m, n);
+    //     int op2 = f1(obstacleGrid, row, col-1, m , n);
         
-        return dp[row][col] = op1 + op2;
-    }
+    //     return dp[row][col] = op1 + op2;
+    // }
 
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
         int m = obstacleGrid.size();
         int n = obstacleGrid[0].size();
-        memset(dp, -1, sizeof(dp));
+        // memset(dp, -1, sizeof(dp));
         // return f(obstacleGrid, 0, 0, m, n);
-        return f1(obstacleGrid, m-1, n-1, m, n);
+        // return f1(obstacleGrid, m-1, n-1, m, n);
+
+        for(int i =1;i<=m;i++){
+            for(int j =1;j<=n;j++){
+                if(obstacleGrid[i-1][j-1]==1){dp[i][j]=0;}
+                else if(i==1 and j==1){dp[i][j]=1;}
+                else {dp[i][j] = dp[i-1][j] + dp[i][j-1];}
+            }
+        }
+        return dp[m][n];
     }
 };
