@@ -22,17 +22,22 @@ public:
             if(indegree[i]==0) {q.push(i);}
         }
 
+        vector<bool> safe(n, false);
+
         while(!q.empty()){
             int node = q.front();
             q.pop();
-            ans.push_back(node);
+            
+            safe[node]=true;
 
             for(auto nbr : adjRev[node]){
                 indegree[nbr]--;
                 if(indegree[nbr]==0) {q.push(nbr);}
             }
         }
-        sort(ans.begin(), ans.end());
+        for(int i=0;i<n;i++){
+            if(safe[i]) ans.push_back(i);
+        }
         return ans;
     }
 };
